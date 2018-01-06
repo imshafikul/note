@@ -3,6 +3,9 @@ require('dotenv').config();
 
 // Get the packages we need
 const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+
 
 // create our express application
 const app = express();
@@ -10,9 +13,17 @@ const app = express();
 // Use environment variable define PORT
 const port = process.env.PORT || 3000;
 
+// use body parser package
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
+
 // create express route
 app.use('/api/v1', require('./app/router'));
 
+
+// connect mongoose database
+mongoose.connect(process.env.DB_URI);
 
 // start the server
 app.listen(port, () => {

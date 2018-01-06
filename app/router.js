@@ -5,10 +5,18 @@ const express = require('express');
 const router = express.Router();
 
 
+// all controller
+const noteController = require('./controllers/note.controller');
+
 // export router
 module.exports = router;
 
 
-router.get('/', function(req, res){
-    res.json({message: "this is home route..."})
-});
+router.route('/notes')
+    .get(noteController.notes)
+    .post(noteController.create)
+
+
+router.route('/notes/:note_id')
+    .put(noteController.update)
+    .delete(noteController.destroy)
