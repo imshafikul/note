@@ -16,14 +16,14 @@ module.exports = router;
 
 router.route('/notes')
     .get(authController.isAuthenticated, noteController.notes)
-    .post(noteController.create)
+    .post(authController.isAuthenticated, noteController.create)
 
 
 router.route('/notes/:note_id')
-    .put(noteController.update)
-    .delete(noteController.destroy)
+    .put(authController.isAuthenticated, noteController.update)
+    .delete(authController.isAuthenticated, noteController.destroy)
 
 
 router.route('/users')
-    .get(userController.user)
+    .get(authController.isAuthenticated, userController.user)
     .post(userController.create)
